@@ -1,0 +1,63 @@
+import { useParams, Link } from 'react-router'
+import { useEffect, useState } from 'react'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+
+const ProductDetail = () => {
+  const { id } = useParams()
+
+  const [product, setProduct] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    let ignore = false
+    const url = `https://dummyjson.com/products/${id}`
+
+    const fetchProduct = async () => {
+      try {
+        setLoading(true)
+        const res = await fetch(url)
+        const data = await res.json()
+        if (ignore) return
+        setProduct(data)
+      } catch (err) {
+        if (!ignore) setError(err)
+      } finally {
+        if (!ignore) setLoading(false)
+      }
+    }
+
+    fetchProduct()
+
+    return () => {
+      ignore = true
+    }
+  }, [id])
+
+  return (
+    <div className='page'>
+      <Header />
+
+      {loading && <p className='message'>載入中…</p>}
+      {error && <p className='message'>載入失敗：{error.message}</p>}
+      {!loading && !error && (
+        <>
+          <Link to='/products' className='back-link'>← 回商品列表</Link>
+          <div className='detail'>
+            <img src={product.thumbnail} alt={product.title} />
+            <div className='detail-info'>
+              <h2>{product.title}</h2>
+              <p className='price'>${product.price}</p>
+              <p>{product.description}</p>
+            </div>
+          </div>
+        </>
+      )}
+
+      <Footer />
+    </div>
+  )
+}
+
+export default ProductDetail
