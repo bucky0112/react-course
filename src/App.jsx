@@ -5,6 +5,7 @@ import About from './pages/About'
 import ProductDetail from './pages/ProductDetail'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Cart from './pages/Cart'
 import NotFound from './pages/NotFound'
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
         <Route path='/products' element={<Products />} />
         <Route path='/about' element={<About />} />
         <Route path='/product/:id' element={<ProductDetail />} />
+        <Route path='/cart' element={<Cart />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />

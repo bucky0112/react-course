@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router'
-import { useContext } from 'react'
 import { useCartStore } from '../store/cartStore'
 import { useFavoriteStore } from '../store/favoriteStore'
 
@@ -8,8 +7,9 @@ const Header = () => {
     return isActive ? 'nav-item on' : 'nav-item'
   }
 
-  const count =useCartStore((state) => state.count)
+  const items =useCartStore((state) => state.items)
   const favoriteCount = useFavoriteStore((state) => state.favoriteCount)
+  const count = items.reduce((sum, i) => sum + i.qty, 0)
 
   return (
     // 在這個區塊中判斷條件都是寫三元運算子或是 &&
@@ -24,6 +24,9 @@ const Header = () => {
         </NavLink>
         <NavLink to='/about' className={navClassName}>
           關於
+        </NavLink>
+        <NavLink to='/cart' className={navClassName}>
+          購物車頁面
         </NavLink>
       </nav>
       <span>購物車：{count}</span>

@@ -24,7 +24,7 @@ const ProductCard = ({ title, price, thumbnail, id }) => {
       <h3>{title}</h3>
       <p className='price'>${price}</p>
       <div className='card-actions'>
-        <button onClick={add}>加入購物車</button>
+        <button onClick={() => add({ id, title, price, thumbnail })}>加入購物車</button>
         <button onClick={handleFavorite}>
           {liked ? '♥ 已收藏' : '♡ 收藏'}
         </button>
