@@ -1,6 +1,11 @@
 import { Link } from 'react-router'
+import { useEffect } from 'react'
 
 const Home = () => { 
+  useEffect(() => { 
+    document.title = '首頁'
+  }, [])
+
   return (
     <div className='home'>
       <h1>這是首頁</h1>

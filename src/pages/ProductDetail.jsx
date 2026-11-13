@@ -1,7 +1,5 @@
 import { useParams, Link } from 'react-router'
 import { useEffect, useState } from 'react'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
 
 const ProductDetail = () => {
   const { id } = useParams()
@@ -11,6 +9,7 @@ const ProductDetail = () => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    document.title = '商品詳情'
     let ignore = false
     const url = `https://dummyjson.com/products/${id}`
 
@@ -37,13 +36,13 @@ const ProductDetail = () => {
 
   return (
     <div className='page'>
-      <Header />
-
       {loading && <p className='message'>載入中…</p>}
       {error && <p className='message'>載入失敗：{error.message}</p>}
       {!loading && !error && (
         <>
-          <Link to='/products' className='back-link'>← 回商品列表</Link>
+          <Link to='/products' className='back-link'>
+            ← 回商品列表
+          </Link>
           <div className='detail'>
             <img src={product.thumbnail} alt={product.title} />
             <div className='detail-info'>
@@ -54,8 +53,6 @@ const ProductDetail = () => {
           </div>
         </>
       )}
-
-      <Footer />
     </div>
   )
 }

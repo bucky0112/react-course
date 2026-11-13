@@ -1,7 +1,4 @@
 import { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
 import ProductCard from '../components/ProductCard'
 import Timer from '../components/Timer'
 
@@ -16,6 +13,7 @@ function Products() {
   const lastQuery = useRef('')
 
   useEffect(() => {
+    document.title = '商品頁面'
     let ignore = false
     const url =
       category === 'all'
@@ -53,7 +51,6 @@ function Products() {
 
   return (
     <div className='page'>
-      <Header />
       <button onClick={() => setShow(!show)}>
         {show ? '隱藏 Timer' : '顯示 Timer'}
       </button>
@@ -108,18 +105,15 @@ function Products() {
 
       <main className='product-list'>
         {shown.map(({ id, title, price, thumbnail }) => (
-          <Link to={`/product/${id}`} key={id}>
-            <ProductCard
-              key={id}
-              title={title}
-              price={price}
-              thumbnail={thumbnail}
-            />
-          </Link>
+          <ProductCard
+            title={title}
+            price={price}
+            thumbnail={thumbnail}
+            id={id}
+            key={id}
+          />
         ))}
       </main>
-
-      <Footer />
     </div>
   )
 }
